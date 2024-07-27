@@ -13,6 +13,7 @@ type FacebookPageFeed = {
 						src: string;
 						width: number;
 					};
+					source?: string;
 				};
 			}[];
 		};

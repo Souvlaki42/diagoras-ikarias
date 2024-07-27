@@ -1,5 +1,6 @@
 import { formatDate } from "@/lib/date";
 import { getFacebookFeed } from "@/lib/facebook";
+import NextVideo from "next-video";
 import Image from "next/image";
 
 export default async function NewsPage() {
@@ -8,6 +9,8 @@ export default async function NewsPage() {
 	const sortedFeed = feed.data.sort((a, b) => {
 		return new Date(b.updated_time).getTime() - new Date(a.updated_time).getTime();
 	});
+
+	console.log(sortedFeed[0]);
 
 	return (
 		<main className="flex flex-col items-center space-y-8 p-4">
@@ -18,13 +21,17 @@ export default async function NewsPage() {
 				>
 					{post.attachments?.data.map((attachment, index) => (
 						<div key={index} className="mb-4">
-							<Image
-								src={attachment.media.image.src}
-								alt={post.message || post.story || "Facebook post"}
-								width={attachment.media.image.width}
-								height={attachment.media.image.height}
-								className="h-auto w-full rounded object-cover"
-							/>
+							{attachment.media.source ? (
+								<NextVideo src={attachment.media.source}></NextVideo>
+							) : (
+								<Image
+									src={attachment.media.image.src}
+									alt={post.message || post.story || "Facebook post"}
+									width={attachment.media.image.width}
+									height={attachment.media.image.height}
+									className="h-auto w-full rounded object-cover"
+								/>
+							)}
 						</div>
 					))}
 					<div>
