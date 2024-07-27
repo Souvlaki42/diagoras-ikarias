@@ -26,10 +26,12 @@ app.get("/webhook", async (c) => {
 	if (mode && token) {
 		if (mode === "subscribe" && challenge && token === env.FB_VERIFY_TOKEN) {
 			console.log("WEBHOOK_VERIFIED");
-			c.text(challenge, 200);
+			return c.text(challenge, 200);
 		} else {
-			c.status(403);
+			return c.text("Unauthorized", 403);
 		}
+	} else {
+		return c.text("Server Error", 500);
 	}
 });
 
