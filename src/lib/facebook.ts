@@ -45,6 +45,7 @@ export const getFacebookFeed = async () => {
 const facebookPage = ky.create({
 	prefixUrl: `https://graph.facebook.com/v20.0/${FB_PAGE_ID}`,
 	searchParams: { access_token: FB_ACCESS_TOKEN },
+	cache: "no-cache",
 	timeout: 10000,
 	retry: {
 		limit: 10,
