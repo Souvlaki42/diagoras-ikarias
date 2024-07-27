@@ -24,12 +24,12 @@ export default function RootLayout({
 			<body
 				className={cn(
 					roboto.className,
-					"m-0 flex h-full w-full flex-col justify-center bg-primary p-0"
+					"m-0 flex min-h-screen w-full flex-col justify-between bg-primary p-0"
 				)}
 			>
-				<Header></Header>
-				{children}
-				<footer className="absolute bottom-2 left-1/2 -translate-x-1/2 transform text-center text-new-white">
+				<Header />
+				<div className="flex-grow">{children}</div>
+				<footer className="flex justify-center py-4 text-new-white">
 					© {new Date().getFullYear()} Διαγόρας Ικαρίας
 				</footer>
 			</body>

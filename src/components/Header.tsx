@@ -24,6 +24,7 @@ export const Header = () => {
 					alt="Πρώτα μέλη της ομάδας"
 					width={2000}
 					height={254}
+					priority
 				></Image>
 				<Link href="/" className="hidden hover:opacity-90 lg:absolute lg:block">
 					<Image src={"/logo.png"} alt="Λογότυπο της ομάδας" width={115} height={150}></Image>

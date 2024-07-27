@@ -12,7 +12,9 @@ const config = {
 				primary: "#0D447C",
 				secondary: "#116236",
 				"new-white": "#FBFBFC",
-				active: "#1C6DC1"
+				active: "#1C6DC1",
+				"light-gray": "#F7F7F7",
+				"border-gray": "#E5E5E5"
 			}
 		},
 		variants: {
@@ -24,4 +26,5 @@ const config = {
 	},
 	plugins: []
 } satisfies Config;
+
 export default config;

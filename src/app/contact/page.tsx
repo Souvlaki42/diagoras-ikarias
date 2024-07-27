@@ -6,7 +6,7 @@ const MAP_SOURCE =
 
 export default function ContactPage() {
 	return (
-		<main className="flex justify-center space-x-10 p-4 align-middle">
+		<main className="flex flex-col justify-center space-x-10 p-4 align-middle lg:flex-row">
 			<section className="flex flex-col">
 				<h1 className="m-2 text-center text-2xl text-new-white underline">Στείλτε ένα μήνυμα</h1>
 				<ContactForm></ContactForm>
