@@ -12,11 +12,7 @@ export function getBaseUrl() {
 	const test = process.env.NODE_ENV === "test";
 
 	if (production || test) {
-		return (
-			process.env.NEXT_PUBLIC_SITE_URL ??
-			process.env.NEXT_PUBLIC_VERCEL_URL ??
-			"https://diagoras-ikarias.vercel.app"
-		);
+		return process.env.NEXT_PUBLIC_VERCEL_URL ?? "https://diagoras-ikarias.vercel.app";
 	}
 
 	return "http://localhost:3000";
@@ -29,7 +25,7 @@ export const getFacebookFeed = async (after?: string) => {
 		const feed = await ky
 			.get("feed", {
 				searchParams: { after: after ?? "" },
-				prefixUrl: `${getBaseUrl()}/api`
+				prefixUrl: `diagoras-ikarias.vercel.app/api`
 			})
 			.json<FacebookPageFeed>();
 		return feed;
