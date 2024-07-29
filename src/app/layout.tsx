@@ -1,3 +1,4 @@
+import NextTopLoader from "nextjs-toploader";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
@@ -28,7 +29,10 @@ export default function RootLayout({
 				)}
 			>
 				<Header />
-				<div className="flex-grow">{children}</div>
+				<div className="flex-grow">
+					<NextTopLoader />
+					{children}
+				</div>
 				<footer className="flex justify-center py-4 text-new-white">
 					© {new Date().getFullYear()} Διαγόρας Ικαρίας
 				</footer>
