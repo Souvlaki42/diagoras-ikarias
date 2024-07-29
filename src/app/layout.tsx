@@ -11,7 +11,10 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-	title: "Διαγόρας Ικαρίας",
+	title: {
+		template: "%s - Διαγόρας Ικαρίας",
+		default: "Αρχική"
+	},
 	description: "Φέρνουμε τα παιδιά κοντά στο ποδόσφαιρο"
 };
 

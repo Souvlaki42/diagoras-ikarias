@@ -8,11 +8,18 @@ export const cn = (...inputs: ClassValue[]) => {
 };
 
 export function getBaseUrl() {
-	return (
-		process.env.NEXT_PUBLIC_SITE_URL ??
-		process.env.NEXT_PUBLIC_VERCEL_URL ??
-		"http://localhost:3000"
-	);
+	const production = process.env.NODE_ENV === "production";
+	const test = process.env.NODE_ENV === "test";
+
+	if (production || test) {
+		return (
+			process.env.NEXT_PUBLIC_SITE_URL ??
+			process.env.NEXT_PUBLIC_VERCEL_URL ??
+			"https://diagoras-ikarias.vercel.app"
+		);
+	}
+
+	return "http://localhost:3000";
 }
 
 export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

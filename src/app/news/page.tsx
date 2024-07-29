@@ -4,7 +4,7 @@ import { getFacebookFeed } from "@/lib/utils";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "Νέα - Διαγόρας Ικαρίας"
+	title: "Νέα"
 };
 
 export default async function NewsPage() {

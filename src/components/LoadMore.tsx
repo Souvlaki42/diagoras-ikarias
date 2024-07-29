@@ -5,7 +5,7 @@ import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Feed } from "./Feed";
-import { delay, getFacebookFeed } from "@/lib/utils";
+import { delay, getBaseUrl, getFacebookFeed } from "@/lib/utils";
 
 export const LoadMore = ({ after }: { after: string }) => {
 	const [feed, setFeed] = useState<FacebookPageFeed["data"]>([]);
@@ -21,6 +21,10 @@ export const LoadMore = ({ after }: { after: string }) => {
 		setFeed((prev) => [...prev, ...newFeed.data]);
 		setNextPage(newFeed.paging.cursors.after);
 	};
+
+	useEffect(() => {
+		console.log(`BASE: ${getBaseUrl()}`);
+	}, []);
 
 	useEffect(() => {
 		if (inView && thereAreMoreData()) loadMoreData();

@@ -3,7 +3,7 @@ import { HouseIcon, MailIcon, PhoneIcon } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "Επικοινωνία - Διαγόρας Ικαρίας"
+	title: "Επικοινωνία"
 };
 
 const MAP_SOURCE =
