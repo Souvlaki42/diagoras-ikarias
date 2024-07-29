@@ -1,7 +1,7 @@
 "use client";
 
 import { FacebookPageFeed } from "@/app/api/feed/route";
-import { formatDate } from "@/lib/date";
+import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 
 export const Feed = ({ data }: { data?: FacebookPageFeed["data"] }) => {

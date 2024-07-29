@@ -1,11 +1,10 @@
 "use client";
 
-import { FacebookPageFeed } from "@/app/api/feed/route";
 import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Feed } from "./Feed";
-import { delay, getBaseUrl, getFacebookFeed } from "@/lib/utils";
+import { type FacebookPageFeed, getFacebookFeed } from "@/lib/feed";
 
 export const LoadMore = ({ after }: { after: string }) => {
 	const [feed, setFeed] = useState<FacebookPageFeed["data"]>([]);
@@ -13,18 +12,13 @@ export const LoadMore = ({ after }: { after: string }) => {
 
 	const { ref, inView } = useInView();
 
-	const thereAreMoreData = () => nextPage !== "no-more-data";
+	const thereAreMoreData = () => feed.length === 0;
 
 	const loadMoreData = async () => {
-		await delay(2000);
 		const newFeed = await getFacebookFeed(nextPage);
 		setFeed((prev) => [...prev, ...newFeed.data]);
 		setNextPage(newFeed.paging.cursors.after);
 	};
-
-	useEffect(() => {
-		console.log(`BASE: ${getBaseUrl()}`);
-	}, []);
 
 	useEffect(() => {
 		if (inView && thereAreMoreData()) loadMoreData();

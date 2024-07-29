@@ -1,36 +1,27 @@
-import { FacebookPageFeed } from "@/app/api/feed/route";
 import { type ClassValue, clsx } from "clsx";
-import ky from "ky";
 import { twMerge } from "tailwind-merge";
 
 export const cn = (...inputs: ClassValue[]) => {
 	return twMerge(clsx(inputs));
 };
 
-export function getBaseUrl() {
-	const production = process.env.NODE_ENV === "production";
-	const test = process.env.NODE_ENV === "test";
+export const formatDate = (dateString: string, locale = "el-GR") => {
+	const date = new Date(dateString);
 
-	if (test) {
-		return process.env.NEXT_PUBLIC_VERCEL_URL;
-	} else if (production) {
-		return process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL;
-	}
-	return "http://localhost:3000";
-}
+	const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
+	const dayFormatter = new Intl.DateTimeFormat(locale, { day: "numeric" });
+	const yearFormatter = new Intl.DateTimeFormat(locale, { year: "numeric" });
+	const timeFormatter = new Intl.DateTimeFormat(locale, {
+		hour: "numeric",
+		minute: "numeric",
+		second: "numeric",
+		hour12: false // 24-hour format
+	});
 
-export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+	const month = monthFormatter.format(date);
+	const day = dayFormatter.format(date);
+	const year = yearFormatter.format(date);
+	const time = timeFormatter.format(date);
 
-export const getFacebookFeed = async (after?: string) => {
-	try {
-		const feed = await ky
-			.get("feed", {
-				searchParams: { after: after ?? "" },
-				prefixUrl: `${getBaseUrl()}/api`
-			})
-			.json<FacebookPageFeed>();
-		return feed;
-	} catch (error) {
-		return { data: [], paging: { cursors: { after: "no-more-data" } } };
-	}
+	return `${day} ${month} ${year}, ${time}`;
 };

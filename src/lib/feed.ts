@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+"use server";
 
-import ky from "ky";
 import { env } from "@/lib/env";
 import { z } from "zod";
+import ky from "ky";
 
 const { FB_PAGE_ID, FB_ACCESS_TOKEN } = env;
 
@@ -42,36 +42,23 @@ const facebookPageFeed = z.object({
 
 export type FacebookPageFeed = z.infer<typeof facebookPageFeed>;
 
-const facebookPage = ky.create({
-	prefixUrl: `https://graph.facebook.com/v20.0/${FB_PAGE_ID}`,
-	searchParams: { access_token: FB_ACCESS_TOKEN },
-	next: { revalidate: 60 },
-	timeout: 10000,
-	retry: {
-		limit: 10,
-		methods: ["GET", "POST"],
-		backoffLimit: 3000
-	}
-});
-
-export const GET = async (request: NextRequest) => {
+export const getFacebookFeed = async (after: string = "") => {
 	try {
-		const searchParams = request.nextUrl.searchParams;
-		const after = searchParams.get("after") ?? "";
-
-		const feed = await facebookPage
-			.get("feed", {
+		const feed = await ky
+			.get(`https://graph.facebook.com/v20.0/${FB_PAGE_ID}/feed`, {
 				searchParams: {
+					access_token: FB_ACCESS_TOKEN,
 					fields: "attachments{media},message,story,id,created_time,updated_time",
 					limit: 4,
 					after
-				}
+				},
+				next: { revalidate: 60 },
+				timeout: 10000
 			})
-			.json<FacebookPageFeed>();
-
+			.json();
 		const parsedFeed = facebookPageFeed.parse(feed);
-		return NextResponse.json(parsedFeed, { status: 200 });
+		return parsedFeed;
 	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
+		return { data: [], paging: { cursors: { after: "" } } };
 	}
 };

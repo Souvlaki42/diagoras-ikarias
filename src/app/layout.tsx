@@ -10,10 +10,12 @@ const roboto = Roboto({
 	weight: ["100", "300", "400", "500", "700", "900"]
 });
 
+const PAGE_NAME = "Διαγόρας Ικαρίας";
+
 export const metadata: Metadata = {
 	title: {
-		template: "%s - Διαγόρας Ικαρίας",
-		default: "Αρχική - Διαγόρας Ικαρίας"
+		template: `%s - ${PAGE_NAME}`,
+		default: PAGE_NAME
 	},
 	description: "Φέρνουμε τα παιδιά κοντά στο ποδόσφαιρο"
 };
