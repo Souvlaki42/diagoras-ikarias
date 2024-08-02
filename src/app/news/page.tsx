@@ -1,6 +1,6 @@
 import { Feed } from "@/components/Feed";
 import { LoadMore } from "@/components/LoadMore";
-import { getFacebookFeed } from "@/lib/feed";
+import { getFacebookFeed } from "@/lib/actions";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

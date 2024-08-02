@@ -1,9 +1,10 @@
-import NextTopLoader from "nextjs-toploader";
-import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
-import "./globals.css";
 import { Header } from "@/components/Header";
 import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "react-hot-toast";
+import "./globals.css";
 
 const roboto = Roboto({
 	subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
 				<Header />
 				<div className="flex-grow">
 					<NextTopLoader />
+					<Toaster />
 					{children}
 				</div>
 				<footer className="flex justify-center py-4 text-new-white">
